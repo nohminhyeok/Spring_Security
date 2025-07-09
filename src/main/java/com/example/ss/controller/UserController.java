@@ -9,6 +9,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.example.ss.dto.UserDto;
 import com.example.ss.service.UserService;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
+
 @Controller
 public class UserController {
 	private UserService userService;
@@ -35,9 +39,11 @@ public class UserController {
 	}
 	
 	@PostMapping("/modifyUserAction")
-	public String modifyUserAction(UserDto userDto) {
+	public String modifyUserAction(UserDto userDto, HttpServletRequest request, HttpServletResponse response) {
 		userService.modifyUser(userDto);
-		return "login";
+		// 강제 로그아웃 처리
+		new SecurityContextLogoutHandler().logout(request, response, SecurityContextHolder.getContext().getAuthentication());
+		return "redirect:/login?logout";
 	}
 
 	@GetMapping("/deleteUser")
