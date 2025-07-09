@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.ss.mapper.UserMapper">
+
+	<select id="selectByUsername"
+		resultType="com.example.ss.domain.UserDomain">
+		SELECT username, password, role
+		FROM user
+		WHERE username = #{username}
+	</select>
+
+	<insert id="insert"
+		parameterType="com.example.ss.domain.UserDomain">
+		INSERT INTO user (username, password, role)
+		VALUES (#{username}, #{password}, #{role})
+	</insert>
+
+	<update id="modifyUser"
+		parameterType="com.example.ss.domain.UserDomain">
+		UPDATE user
+		SET password = #{changePw}, role = #{role}
+		WHERE username = #{username}
+	</update>
+
+    <delete id="delete" parameterType="com.example.ss.domain.UserDomain">
+        DELETE FROM user WHERE username = #{username}
+    </delete>
+</mapper>
