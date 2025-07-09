@@ -22,7 +22,9 @@
 	</c:if>
 	<c:if test="${!empty loginUsername && loginUsername ne 'anonymousUser'}">
 		<div>
-			<a href="/logout">로그아웃</a>
+			<form action="/logout" method="post" style="display:inline;">
+				<button type="submit">로그아웃</button>
+			</form>
 		</div>
 		<div>
 			<a href="/modifyUser">사용자 정보 수정</a>
